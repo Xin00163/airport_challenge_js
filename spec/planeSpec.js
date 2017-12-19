@@ -31,5 +31,5 @@ describe("A plane", function(){
     expect(function(){
       plane.takeOff();
     }).toThrowError("Already flying");
-  })
+  });
 });

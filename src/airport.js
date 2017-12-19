@@ -5,7 +5,7 @@ function Airport(capacity) {
 }
 
 Airport.prototype.land = function(plane){
-  if (this.planes.length === this.capacity) { throw Error("Airport is full")}
+  if (this._isFull()) { throw Error("Airport is full")}
   plane.land()
   this.planes.push(plane)
 }
@@ -13,4 +13,8 @@ Airport.prototype.land = function(plane){
 Airport.prototype.takeOff = function(plane){
   plane.takeOff()
   this.planes.splice(this.planes.indexOf(plane), 1)
+}
+
+Airport.prototype._isFull = function(){
+  return this.planes.length >= this.capacity;
 }

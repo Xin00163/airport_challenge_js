@@ -57,6 +57,7 @@ describe("Airport", function(){
     for(var i = 0; i < 30; i++){
       airport.land(plane)
     };
+    console.log(airport)
     // when checking errors, you must pass function(){} to expect
     expect(function(){
       airport.land(plane)
