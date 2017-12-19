@@ -1,13 +1,19 @@
 describe("Airport", function(){
   var airport;
   var plane;
+  var weather;
 
   beforeEach(function(){
-    airport = new Airport();
+    airport = new Airport(30, weather=weather);
      plane = {
        land: function(){},
        takeOff: function(){},
      };
+     weather = {
+       isStormy: function(){
+         return false;
+       }
+     }
     //plane = jasmine.createSpyObj('plane', ['land']);
   });
 
@@ -57,10 +63,25 @@ describe("Airport", function(){
     for(var i = 0; i < 30; i++){
       airport.land(plane)
     };
-    console.log(airport)
     // when checking errors, you must pass function(){} to expect
     expect(function(){
       airport.land(plane)
     }).toThrowError("Airport is full");
   });
+
+  it("Should not allow plane to takeoff in stormy weather", function(){
+    spyOn(weather, 'isStormy').and.returnValue(true);
+    airport = new Airport(30, weather);
+    expect(function(){
+      airport.takeOff(plane);
+    }).toThrowError("Weather is too stormy");
+  });
+
+  it("Should not allow plane to land in stormy weather", function(){
+    spyOn(weather, 'isStormy').and.returnValue(true);
+    airport = new Airport(30, weather);
+    expect(function(){
+      airport.land(plane);
+    }).toThrowError("Weather is too stormy");
+  })
 });
