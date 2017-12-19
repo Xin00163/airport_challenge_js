@@ -4,7 +4,7 @@ function Plane (){
 
 Plane.prototype.land = function(){
   if(!this.isFlying){ throw new Error("Already landed") }
-  this.isFlying = true;
+  this.isFlying = false;
 };
 
 Plane.prototype.takeOff = function(){

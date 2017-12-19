@@ -12,7 +12,7 @@ describe("A plane", function(){
   it("should not be flying when landed", function(){
     plane.takeOff()
     plane.land()
-    expect(plane.isFlying).toBe(true);
+    expect(plane.isFlying).toBe(false);
   });
 
   it("should be flying after taking off", function(){
