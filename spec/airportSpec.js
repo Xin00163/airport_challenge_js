@@ -5,10 +5,9 @@ describe("Airport", function(){
   beforeEach(function(){
     airport = new Airport();
      plane = {
-       land: function(){
-
-       },
-     }
+       land: function(){},
+       takeOff: function(){},
+     };
     //plane = jasmine.createSpyObj('plane', ['land']);
   });
 
@@ -38,4 +37,29 @@ describe("Airport", function(){
     expect(airport.planes.length - capacity).toEqual(1)
   });
 
+  it("Should take off a plane", function(){
+    spyOn(plane, 'takeOff');
+    airport.takeOff(plane);
+    expect(plane.takeOff).toHaveBeenCalled();
+  });
+
+  it("Should release the plane when it takes off", function(){
+    // capacity = airport.planes.length;
+    spyOn(plane, 'takeOff');
+    airport.land(plane);
+    capacity = airport.planes.length;
+    airport.takeOff(plane);
+    expect(airport.planes.length).toEqual(0)
+  });
+
+  it("Should raise error when the plane is trying to land if the airport is full", function(){
+    spyOn(plane, 'land');
+    for(var i = 0; i < 30; i++){
+      airport.land(plane)
+    };
+    // when checking errors, you must pass function(){} to expect
+    expect(function(){
+      airport.land(plane)
+    }).toThrowError("Airport is full");
+  });
 });
