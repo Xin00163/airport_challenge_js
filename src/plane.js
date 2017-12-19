@@ -3,9 +3,11 @@ function Plane (){
 };
 
 Plane.prototype.land = function(){
+  if(!this.isFlying){ throw new Error("Already landed") }
   this.isFlying = true;
 };
 
 Plane.prototype.takeOff = function(){
-  this.isFlying = false;
+  if(this.isFlying){ throw new Error("Already flying") }
+  this.isFlying = true;
 };
